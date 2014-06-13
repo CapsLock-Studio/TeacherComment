@@ -1,0 +1,118 @@
+$iosColor: #007AFF;
+
+html, body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "wt011";
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+}
+
+.bs-docs-nav .navbar-brand, .bs-docs-nav .navbar-nav > li > a {
+  color: $iosColor;
+  font-weight: 500;
+}
+
+.bs-navbar-collapse{
+  @media (max-width: 767px) {
+    border-top: 1px #EEE solid;
+    background-color: #FFF;
+  }
+}
+
+.navbar {
+  border-bottom: 1px solid #EEE;
+  background-color: #FBFBFB;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: lighten(#FBFBFB, 10%);
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+.no-padding-right {
+  padding-right: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-margin-left {
+  margin-left: 0 !important;
+}
+
+.no-margin-right {
+  margin-right: 0 !important;
+}
+
+.select2.form-control {
+  padding: 0;
+}
+
+.search-teacher {
+  @media (max-width: 767px) {
+    .col-xs-12:not(:first-child) {
+      margin-top:10px;
+    }
+  }
+}
+
+.teacher-name {
+  margin-top: 0;
+  margin-bottom: 5px;
+  letter-spacing: 10px;
+
+  small {
+    margin-left: 20px;
+    letter-spacing: normal;
+  }
+}
+
+.teacher-info .comments {
+  margin-top: 50px;
+}
+
+.comments {
+  padding-top: 10px;
+
+  border-bottom: 1px solid #EEE;
+  display: inline-block;
+  width: 100%;
+
+  .name {
+    font-size: 16px;
+  }
+  .quantity {
+    display: inline-block;
+    padding-top: 18px;
+    padding-bottom: 6px;
+    span {
+      margin-left: 10px;
+    }
+  }
+  .comment {
+    i {
+      margin-left: 10px;
+    }
+  }
+}
+
+.courses {
+  h4 {
+    margin-top: 0;
+  }
+
+  .btn-more {
+    margin: 10px 0;
+  }
+}
+
+.divide {
+  margin-top: 0;
+  margin-bottom: 30px;
+}

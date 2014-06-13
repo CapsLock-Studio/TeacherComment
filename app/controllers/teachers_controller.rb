@@ -1,8 +1,13 @@
 class TeachersController < ApplicationController
-	before_action :set_comment, only: [:show, :comment]
+	before_action :set_comment, only: [:comment]
 	def comment
 		
-	end
+  end
+
+  def index
+
+  end
+
 	private
 		def set_comment
 			
