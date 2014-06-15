@@ -116,3 +116,41 @@ html, body {
   margin-top: 0;
   margin-bottom: 30px;
 }
+
+.votes {
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .vote {
+    text-align: center;
+
+    label {
+      font-size: large;
+      margin-bottom: auto;
+      vertical-align: middle;
+    }
+
+    &.inactive {
+      opacity: 0.5;
+      a {
+        cursor: not-allowed;
+      }
+    }
+
+    transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+  }
+
+  .vote-button-group {
+    width: 60px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  a.vote-up-btn i{
+    color: $iosColor;
+    text-decoration: none;
+  }
+}

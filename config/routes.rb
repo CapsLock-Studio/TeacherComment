@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     collection do
       get :teachers, action: :teachers
     end
+
+    resources :comments
   end
   resources :comment
   resources :login

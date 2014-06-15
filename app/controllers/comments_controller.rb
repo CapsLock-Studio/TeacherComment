@@ -13,6 +13,6 @@ class CommentsController < ApplicationController
 
   private
     def set
-      @comment = Comment.find(params[:id])
+      # @comment = Comment.find(params[:id])
     end
 end

@@ -8,6 +8,10 @@ class TeachersController < ApplicationController
 
   end
 
+  def show
+    
+  end
+
 	private
 		def set_comment
 			
