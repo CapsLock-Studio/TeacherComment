@@ -41,7 +41,73 @@
 
     <!-- Comments block start. -->
     <div class="col-sm-8 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-comments-o fa-fw"></i>
+          評語
+          <div class="panel-actions pull-right">
+            <a href="#" class="text-ios message-form-btn">
+              <i class="fa fa-edit fa-lg"></i>
+            </a>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12">
+            <div class="row message message-form">
+              <div class="col-sm-1 col-xs-2">
+                <div class="avatar elephant"></div>
+              </div>
+              <div class="col-sm-11 col-xs-10">
+                <div class="message-content">
+                  <div class="heading text-info">
+                    匿名大象
+                  </div>
+                  <textarea class="form-control autosize" rows="2"></textarea>
+                  <div class="actions">
+                    <button class="btn btn-default">
+                      <i class="fa fa-edit">
+                        發表
+                      </i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
+            <% 6.times do |index| %>
+              <% random_number = rand(@animals.length) %>
+              <div class="row message">
+                <div class="col-sm-1 col-xs-2">
+                  <div class="avatar <%= @animals[random_number][:icon] %>"></div>
+                </div>
+                <div class="col-sm-11 col-xs-10">
+                  <div class="message-content">
+                    <div class="heading text-info">
+                      匿名<%= @animals[random_number][:name] %>
+                      <span class="timestamp pull-right text-muted">
+                        <i class="fa fa-clock-o"></i>
+                        <%= (Time.now - index.days - index.hours).strftime('%Y/%m/%d %H:%m') %>
+                      </span>
+                    </div>
+                    <p>This teacher's math is pretty great. I like enjoy the course every time.This teacher's math is pretty great. I like enjoy the course every time.This teacher's math is pretty great. I like enjoy the course every time.
+                    </p>
+                    <div class="actions">
+                      <a href="#">
+                        <i class="fa fa-thumbs-o-down"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <a href="#" class="btn btn-block text-ios text-center">
+            <i class="fa fa-angle-down fa-lg"></i>
+          </a>
+        </div>
+      </div>
     </div>
     <!-- Comments block end. -->
   </div>

@@ -26,10 +26,10 @@
       <% 10.times do %>
         <div class="row teacher">
           <div class="avatar col-md-2">
-            <img class="img-responsive" src="http://placehold.it/300x300&text=Photo">
+            <%= image_tag "avatar-test#{(rand(3) + 1)}.jpg", class: 'img-responsive' %>
           </div>
           <div class="teacher-info col-md-3">
-            <h3 class="teacher-name">黃柏翔<small>教授</small></h3>
+            <h3 class="teacher-name">傳說中的<small>教授</small></h3>
             <p>商管學院 - 資訊管理學系</p>
 
             <div class="comments">
@@ -66,7 +66,7 @@
             <div class="row">
               <div class="col-xs-12">
                 <div class="btn btn-block btn-sm btn-link text-center text-ios btn-more">
-                  <i class="fa fa-angle-down fa-2x fa-fw"></i>
+                  <i class="fa fa-angle-down fa-lg fa-fw"></i>
                 </div>
               </div>
             </div>

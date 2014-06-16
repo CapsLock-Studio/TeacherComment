@@ -1,4 +1,4 @@
-$themeColor: #007aff;
+@import 'variables';
 
 * {
 //  border-radius: 0 !important;
@@ -43,5 +43,19 @@ select2-container.form-control:focus, .select2-container-multi .select2-choices:
 }
 
 .pagination > li > a, .pagination > li > span {
-  color: $themeColor
+  color: $themeColor;
+}
+
+.panel {
+  border-color: $borderColor;
+
+  .panel-heading {
+    background-color: $backgroundColor;
+  }
+
+  .panel-footer {
+    background-color: $backgroundColor;
+    border-color: $borderColor;
+    padding: 0;
+  }
 }

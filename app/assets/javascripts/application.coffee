@@ -1,5 +1,6 @@
 $('.selectpicker').selectpicker()
 $('.select2').select2()
+$('.autosize').autosize()
 
 $('.vote.inactive').on('click', (e)->
   e.preventDefault()
@@ -9,9 +10,12 @@ $('.vote-up-btn, .vote-down-btn').on('click', (e)->
   $(this).closest('.vote').addClass('inactive')
 )
 
+$('.message-form-btn').on('click', (e)->
+  e.preventDefault()
+  $('.message-form').toggleClass('active')
+)
+
 if $('#chart-canvas').length
-  # color: '#FC0'
-  # color: '#2AC845'
   $('#chart-canvas').highcharts({
     colors: ['#FC0', '#2AC845'],
     chart: {
