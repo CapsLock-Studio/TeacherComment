@@ -37,3 +37,6 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+# gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
+# gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
+# gem 'omniauth-facebook'

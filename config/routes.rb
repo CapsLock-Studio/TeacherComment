@@ -1,18 +1,20 @@
 Rails.application.routes.draw do
-  # resources :contacts
-
   resources :teachers do
-    member do
-      get :teachers, action: :teachers
-    end
-    collection do
-      get :teachers, action: :teachers
-    end
+    resources :reviews
   end
-  resources :comment
+  resources :subjects do
+    resources :comments
+  end
   resources :login
-  resources :admin
-  root 'login#index'
+  resources :verify
+  resources :index
+  resources :error
+  resources :fblogin
+  root 'index#index'
+
+# get    '/events'          => "events#index",   :as => "test"
+# get    '/events'          => "events#index",   as: 'events'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

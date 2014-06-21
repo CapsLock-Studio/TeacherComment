@@ -34,4 +34,7 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  ENV['FACEBOOK_KEY'] = '286556551510257'
+  ENV['FACEBOOK_SECRET'] = '53864d6ab61bd0a3b083108cf4c97bec'
+  ENV['FACEBOOK_URI'] = 'http://localhost:3000'
 end

@@ -11,26 +11,53 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613083642) do
+ActiveRecord::Schema.define(version: 20140619045734) do
 
   create_table "comments", force: true do |t|
+    t.integer  "teacher_id"
+    t.integer  "subject_id"
+    t.integer  "user_id"
+    t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "contacts", force: true do |t|
+  create_table "homeworks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "teacher_id"
+    t.integer  "review"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reports", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "teacher_id"
+    t.integer  "review"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subjects", force: true do |t|
+    t.integer  "teacher_id"
     t.string   "name"
-    t.integer  "phone"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "teachers", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
+    t.integer  "type_id"
+    t.integer  "platform_id"
+    t.string   "ip"
+    t.string   "email"
+    t.string   "verify_code"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
