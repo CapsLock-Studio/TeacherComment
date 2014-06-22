@@ -4,11 +4,9 @@ class CommentsController < ApplicationController
 
   # [POST]/subjects/{subject_id}/comments
   def create
-    @comment = params[:comment]
-    @user_id = session[:user_id]
-    @subject_id = params[:subject_id]
     if @comment.present?
       @comment = Comment.new(comment_params)
+      @comment.user_id = session[:user_id]
       respond_to do |format|
         if @comment.save
           format.html { redirect_to :controller => 'comments', :action => 'index', :subject_id => @subject_id}
@@ -16,18 +14,21 @@ class CommentsController < ApplicationController
         else
           @msg = 'Cannot add comment, the site was temporarily down.'
           format.html { render :template => 'error/index' }
-          format.json { render json: @comment.errors, status: :unprocessable_entity }
+          format.json { render json: @msg, status: :unprocessable_entity }
         end
       end
     else
       respond_to do |format|
-        # format.json { render json: {'message' =>''}}
+        @msg = 'comment cannot be empty!'
+        format.html { render :template => 'error/index' }
+        format.json { render json: {'message' => @msg}}
       end
     end
   end
 
   # [GET]/subjects/{subject_id}/comments
   def index
+    @page = params[:page] || 0
     respond_to do |format|
       format.html {}
       format.json {render json: @comment.to_a}
@@ -47,8 +48,8 @@ class CommentsController < ApplicationController
     end
 
     def set_comment
-      @comment = Comment.where!('subject_id = :subject_id', {subject_id: params[:subject_id]})
-    rescue
+      @comment = Comment.where!(:subject_id, params[:subject_id]).pageinator
+    rescue ActiveRecord::RecordNotFound
       @comment = {}
     end
 end

@@ -1,16 +1,11 @@
 class LoginController < ApplicationController
   skip_before_filter :authorize
   before_action :set_fb_uri, only: [:index]
+
   def index
-    # session[:user_id] = nil
-    # session[:user] = nil
     if session[:user].present?
       redirect_to :controller => 'teachers' , :action => 'index'
     end
-  end
-
-  def create
-    
   end
 
   private

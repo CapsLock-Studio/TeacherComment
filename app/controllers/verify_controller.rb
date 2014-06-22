@@ -3,19 +3,28 @@ class VerifyController < ActionController::Base
 
   # main page for send mail
   def index
-    
+  end
+
+  # [PUT] /verify/{id}
+  def update
+    if @user.status == false and params[:email].present? and params[:email].match(/@s\d{1,}\.tku\.edu\.tw\z/)
+      @user.email = params[:email]
+      @user.student_id = params[:email].split("@").first
+      @user.save
+      # send mail here
+    end
   end
 
   # [GET] /verify/{id}?verify_code={code}
   def show
     verify_code = params[:verify_code]
-    if params[:verifyCode].present? and @user.verify_code == verify_code and @user.status == false
+    if verify_code.present? and @user.verify_code == verify_code and @user.status == false
       @user.verify_code = ''
       @user.status = true
       @user.save
       redirect_to :controller => 'login', :action => 'index'
     else
-      @msg = 'Verify_code is not same.'
+      @msg = 'verify_code is not correct.'
       render :template => 'error/index'
     end
   end

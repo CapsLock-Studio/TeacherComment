@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
-  resources :teachers do
-    resources :reviews
-  end
+  resources :teachers
   resources :subjects do
     resources :comments
+    resources :reviews
   end
   resources :login
   resources :verify

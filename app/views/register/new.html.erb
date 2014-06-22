@@ -1,0 +1,5 @@
+<%= form_for @user, url: register_index_path do |f| %>
+	<%= f.text_field :platform_id, class: 'form-control' %>
+	<%= f.text_field :type_id, class: 'form-control' %>
+	<%= f.button type: :submit %>
+<% end %>

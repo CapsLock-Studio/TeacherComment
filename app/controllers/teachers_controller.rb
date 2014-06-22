@@ -8,7 +8,10 @@ class TeachersController < ApplicationController
 
   # [GET]/teachers/{teacher_id}
   def show
-
+    respond_to do |format|
+      format.json {render json: @teacher.to_a}
+      format.html {}
+    end
   end
 
   # [POST] /teachers
@@ -17,7 +20,7 @@ class TeachersController < ApplicationController
       @teacher = Teacher.new(teacher_params)
       respond_to do |format|
         if @teacher.save
-          format.json { render :show, status: :created, location: @teacher }
+          format.json { render json: {:teacher_id => @teacher.id} }
         else
           format.json { render json: @teacher.errors, status: :unprocessable_entity }
         end
@@ -33,15 +36,11 @@ class TeachersController < ApplicationController
       @teacher.destroy
     end
   end
-
-  # [GET] /teacher/{teacher_id}/edit
-  def edit
-    
-  end
   
   private
     def set_teacher
-      @teacher = Teacher.find(params[:teacher_id])
+      @teacher = Teacher.find(params[:id])
+      @subject = Subject.where(:teacher_id, params[:id]).pageinator
     rescue ActiveRecord::RecordNotFound
       @msg = 'Cannot find teacher as well.'
       respond_to do |format|
@@ -51,6 +50,6 @@ class TeachersController < ApplicationController
     end
 
     def teacher_params
-      params.require(:teacher).permit(:name)
+      params.require(:teacher).permit(:name, :department)
     end
 end
