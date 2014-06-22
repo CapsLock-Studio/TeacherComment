@@ -1,0 +1,218 @@
+@import 'variables';
+
+html, body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "wt011";
+  text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
+}
+
+.bs-docs-nav .navbar-brand, .bs-docs-nav .navbar-nav > li > a {
+  color: $themeColor;
+  font-weight: 500;
+}
+
+.bs-navbar-collapse{
+  @media (max-width: 767px) {
+    border-top: 1px $borderColor solid;
+    background-color: #FFF;
+  }
+}
+
+.navbar {
+  border-bottom: 1px solid $borderColor;
+  background-color: $backgroundColor;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: lighten($backgroundColor, 10%);
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+.no-padding-right {
+  padding-right: 0 !important;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-margin-left {
+  margin-left: 0 !important;
+}
+
+.no-margin-right {
+  margin-right: 0 !important;
+}
+
+.select2.form-control {
+  padding: 0;
+}
+
+.search-teacher {
+  @media (max-width: 767px) {
+    .col-xs-12:not(:first-child) {
+      margin-top:10px;
+    }
+  }
+}
+
+.teacher-name {
+  margin-top: 0;
+  margin-bottom: 5px;
+  letter-spacing: 10px;
+
+  small {
+    margin-left: 20px;
+    letter-spacing: normal;
+  }
+}
+
+.teacher-info .comments {
+  margin-top: 50px;
+}
+
+.comments {
+  padding-top: 10px;
+
+  border-bottom: 1px solid #EEE;
+  display: inline-block;
+  width: 100%;
+
+  .name {
+    font-size: 16px;
+  }
+  .quantity {
+    display: inline-block;
+    padding-top: 18px;
+    padding-bottom: 6px;
+    span {
+      margin-left: 10px;
+    }
+  }
+  .comment {
+    i {
+      margin-left: 10px;
+    }
+  }
+}
+
+.courses {
+  h4 {
+    margin-top: 0;
+  }
+
+  .btn-more {
+    margin: 10px 0;
+  }
+}
+
+.divide {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.votes {
+  padding-left: 10px;
+  padding-right: 10px;
+
+  .vote {
+    text-align: center;
+
+    label {
+      font-size: large;
+      margin-bottom: auto;
+      vertical-align: middle;
+    }
+
+    &.inactive {
+      opacity: 0.5;
+      a {
+        cursor: not-allowed;
+      }
+    }
+
+    transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    -moz-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+  }
+
+  .vote-button-group {
+    width: 60px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  a.vote-up-btn i{
+    color: $themeColor;
+    text-decoration: none;
+  }
+}
+
+.message {
+  margin-bottom: 20px;
+  border-bottom: 1px solid $borderColor;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .avatar {
+    background-image: image_url('anonymous_animals_grid.jpg');
+    background-size: 267px 271px;
+    width: 31px;
+    height: 31px;
+    overflow: hidden;
+    &.panda {
+
+    }
+
+    $animals: 'elephant', 'tiger', 'anteater', 'koala', 'dolphin',
+              'fox', 'alligator', 'manatee', 'raccoon', 'camel',
+              'crow', 'zebra', 'dinosaur', 'kraken', 'monkey',
+              'liger', 'auroch', 'narwhal', 'panda', 'dingo',
+              'magpie', 'kangaroo', 'chamleon', 'python', 'wombat';
+
+    @for $i from 1 through length($animals) {
+      $animalName: nth($animals, $i);
+      &.#{$animalName} {
+        background-position: #{-10 - 53.4 * (($i - 1) % 5)}px #{-10 - 55.3 * floor(($i - 1) / 5)}px;
+      }
+    }
+  }
+
+  .message-content {
+    margin-top: -4px;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    textarea {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .timestamp {
+      font-size: small;
+    }
+
+    .actions {
+      margin-bottom: 10px;
+      text-align: right;
+    }
+  }
+
+  &.message-form {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+}

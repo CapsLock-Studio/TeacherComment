@@ -1,0 +1,61 @@
+@import 'variables';
+
+* {
+//  border-radius: 0 !important;
+}
+
+select2-container.form-control:focus, .select2-container-multi .select2-choices:focus, select:focus, textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .form-control:focus, .uneditable-input:focus {
+  border-color: #AAA;
+  box-shadow: 0px 0px 8px #DCE1E5;
+}
+
+/* Outline button for use within the docs */
+.btn-outline {
+  color: $themeColor;
+  background-color: transparent;
+  border-color: $themeColor;
+}
+.btn-outline:hover,
+.btn-outline:focus,
+.btn-outline:active {
+  color: #fff;
+  background-color: $themeColor;
+  border-color: $themeColor;
+}
+
+/* Inverted outline button (white on dark) */
+.btn-outline-inverse {
+  color: #fff;
+  background-color: transparent;
+  border-color: #cdbfe3;
+}
+.btn-outline-inverse:hover,
+.btn-outline-inverse:focus,
+.btn-outline-inverse:active {
+  color: $themeColor;
+  text-shadow: none;
+  background-color: #fff;
+  border-color: #fff;
+}
+
+.text-ios{
+  color: $themeColor;
+}
+
+.pagination > li > a, .pagination > li > span {
+  color: $themeColor;
+}
+
+.panel {
+  border-color: $borderColor;
+
+  .panel-heading {
+    background-color: $backgroundColor;
+  }
+
+  .panel-footer {
+    background-color: $backgroundColor;
+    border-color: $borderColor;
+    padding: 0;
+  }
+}

@@ -24,6 +24,37 @@ class CommentsController < ApplicationController
         format.json { render json: {'message' => @msg}}
       end
     end
+
+  # [GET] /comment/1
+  # [GET] /comment/1.json
+  def show
+    # show render
+    @animals = [
+        {
+          name: '大象',
+          icon: 'elephant'
+        },
+        {
+          name: '食蟻獸',
+          icon: 'anteater'
+        },
+        {
+          name: '恐龍',
+          icon: 'dinosaur'
+        },
+        {
+          name: '澳洲土狗',
+          icon: 'dingo'
+        },
+        {
+          name: '蟒蛇',
+          icon: 'python'
+        },
+        {
+          name: '狐狸',
+          icon: 'fox'
+        }
+    ]
   end
 
   # [GET]/subjects/{subject_id}/comments
@@ -51,5 +82,9 @@ class CommentsController < ApplicationController
       @comment = Comment.where!(:subject_id, params[:subject_id]).pageinator
     rescue ActiveRecord::RecordNotFound
       @comment = {}
+    end
+
+    def set
+      # @comment = Comment.find(params[:id])
     end
 end
