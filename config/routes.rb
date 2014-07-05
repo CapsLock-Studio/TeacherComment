@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     resources :reviews
   end
   resources :login
+  resources :logout
   resources :verify
   resources :index
-  resources :error
   resources :fblogin
 
 # get    '/events'          => "events#index",   :as => "test"

@@ -2,16 +2,18 @@ class SubjectsController < ApplicationController
 
   # [POST]/subjects
   def create
-    @subject = Subject.new(subject_params)
-    respond_to do |format|
-      if @subject.save
-        format.html { redirect_to :controller => 'comments', :action => 'index', :subject_id => @subject.id}
-        format.json { render json: {'created_at' => @subject.created_at}}                                 
-      else
-        @msg = 'Cannot add subject, the site was temporarily failed.'
-        format.html { render :template => 'error/index'}
-        format.json { render json: @subject.errors, status: :unprocessable_entity }
+    if params[:teacher_id].present? and Subject.find_by(:teacher_id => params[:teacher_id], :name => params[:name]).present?
+      @subject = Subject.new(subject_params)
+      respond_to do |format|
+        if @subject.save
+          format.html { redirect_to subject_comments_path(@subject.id)}
+          format.json { render json: {'created_at' => @subject.created_at}}                                 
+        else
+          call_image('400')
+        end
       end
+    else
+      # error
     end
   end
 

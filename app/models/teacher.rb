@@ -1,5 +1,6 @@
 class Teacher < ActiveRecord::Base
-  scope :pageinator, ->(number) {
-    offset((20 * (@page-1)) + 1).limit(20)
+  scope :pageinator, ->(page = 1, size = 10) {
+    offset((size * (page.to_i - 1)) + 0).limit(size)
   }
+  has_many :subject
 end

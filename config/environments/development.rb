@@ -26,15 +26,26 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
-
+  config.timezone = 'Taipei'
   # Adds additional error checking when serving assets at runtime.
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
+  config.action_mailer.smtp_settings = {
+    :address => "smtp.gmail.com",
+    :port => "587",
+    :domain => "gmail.com",
+    :authentication => "plain",
+    :user_name => "{YOUR_EMAIL_HERE}",
+    :password => "{YOU_PASSWORD_HERE}",
+    :enable_starttls_auto => true
+  }
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  # encoding: utf-8
   ENV['FACEBOOK_KEY'] = '286556551510257'
   ENV['FACEBOOK_SECRET'] = '53864d6ab61bd0a3b083108cf4c97bec'
-  ENV['FACEBOOK_URI'] = 'http://localhost:3000'
+  ENV['APP_URI'] = 'http://localhost:3000'
+  ENV['MAIL_REGEX'] = /@s\d{1,}\.tku\.edu\.tw\z/
 end

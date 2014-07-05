@@ -1,13 +1,14 @@
-class RegisterController < ActionController::Base
-
+class RegisterController < ApplicationController
+  skip_before_filter :authorize
+  
   protected
     def register(platform_id, type_id)
       user = User.find_by(platform_id: platform_id, type_id: type_id)
       if user.present?
         if user.status == true
-          enter(user.id)
+          enter(user)
         else
-          redirect_verify
+          redirect_verify(user.id)
         end
       else
         o = [('a'..'z'), ('A'..'Z'), (0..9)].map { |i| i.to_a }.flatten
@@ -17,13 +18,9 @@ class RegisterController < ActionController::Base
         user.platform_id = platform_id
         user.type_id = type_id
         if user.save
-          redirect_verify
+          redirect_verify(user.id)
         else
-          @msg = 'save user error'
-          respond_to do |format|
-            format.json {render json: {'message' => @msg}}
-            format.html {redirect_to :controller => 'error', :action => 'index'}
-          end
+          call_image('400')
         end
       end
     end
@@ -41,14 +38,15 @@ class RegisterController < ActionController::Base
 
   private
     def enter(user)
-      user.ip = request.remote_ip;
+      user.ip = request.remote_addr || '127.0.0.1'
       user.save
       login_user(user.id)
-      redirect_to :controller => 'teachers', :action => 'index'
+      redirect_to teachers_path
     end
 
-    def redirect_verify
-      redirect_to :controller => 'verify', :action => 'index'
+    def redirect_verify(tmp_user_id = nil)
+      session[:tmp_user_id] = tmp_user_id
+      redirect_to verify_index_path
     end
 
     def login_user(user_id)

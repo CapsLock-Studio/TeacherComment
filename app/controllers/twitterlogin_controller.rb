@@ -1,0 +1,2 @@
+class TwitterloginController < ApplicationController
+end

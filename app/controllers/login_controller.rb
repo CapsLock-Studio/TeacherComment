@@ -3,14 +3,15 @@ class LoginController < ApplicationController
   before_action :set_fb_uri, only: [:index]
 
   def index
+    session[:tmp_user_id] = nil
     if session[:user].present?
-      redirect_to :controller => 'teachers' , :action => 'index'
+      redirect_to teachers_path
     end
   end
 
   private
     def set_fb_uri
       require 'digest/md5'
-      @fb_login = 'http://www.facebook.com/dialog/oauth?client_id='+ENV['FACEBOOK_KEY']+'&redirect_uri='+Rack::Utils.escape(ENV['FACEBOOK_URI']+'/fblogin')+'&state='+Digest::MD5.hexdigest(SecureRandom.urlsafe_base64(nil, false))
+      @fb_login = 'http://www.facebook.com/dialog/oauth?client_id='+ENV['FACEBOOK_KEY']+'&redirect_uri='+Rack::Utils.escape(ENV['APP_URI']+'/fblogin')+'&state='+Digest::MD5.hexdigest(SecureRandom.urlsafe_base64(nil, false))
     end
 end

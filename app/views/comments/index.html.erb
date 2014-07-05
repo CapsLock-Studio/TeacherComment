@@ -1,0 +1,123 @@
+<div class="container">
+  <div class="row">
+    <!-- Course information block start. -->
+    <div class="col-sm-4 col-xs-12">
+      <h2><%= @subject.name %>   <small><%= @subject.teacher.name %>   教授</small></h2>
+      <p>商管學院 - 資訊管理學系</p>
+      <div style="height:280px;" id="chart-canvas"></div>
+      <h4>投票</h4>
+      <div class="votes row">
+        <div class="vote col-xs-6 <%= @test_clicked ? 'inactive' : '' %>">
+          <label>考試</label>
+          <div class="vote-button-group text-center">
+            <a href="#" class="vote-up-btn btn-block">
+              <i class="fa fa-caret-up"></i>
+            </a>
+            <span class="vote-number">
+              <%= @test %>
+            </span>
+            <%= hidden_field_tag :test_rate, @test_rate.to_s %>
+            <a href="#" class="vote-down-btn btn-block">
+              <i class="fa fa-caret-down"></i>
+            </a>
+          </div>
+        </div>
+        <div class="vote col-xs-6 <%= @report_clicked ? 'inactive' : '' %>">
+          <label>報告</label>
+          <div class="vote-button-group text-center">
+            <a href="#" class="vote-up-btn btn-block">
+              <i class="fa fa-caret-up"></i>
+            </a>
+            <span class="vote-number">
+              <%= @report %>
+            </span>
+            <%= hidden_field_tag :report_rate, @report_rate.to_s %>
+            <a href="#" class="vote-down-btn btn-block">
+              <i class="fa fa-caret-down"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Course information block end. -->
+
+    <!-- Comments block start. -->
+    <div class="col-sm-8 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa fa-comments-o fa-fw"></i>
+          評語
+          <div class="panel-actions pull-right">
+            <a href="#" class="text-ios message-form-btn">
+              <i class="fa fa-edit fa-lg"></i>
+            </a>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-12">
+            <div class="row message message-form">
+              <div class="col-sm-1 col-xs-2">
+                <% random_number = rand(@animals.length) %>
+                <div class="avatar <%= @animals[random_number][:icon] %>"></div>
+              </div>
+              <div class="col-sm-11 col-xs-10">
+                <div class="message-content">
+                  <div class="heading text-info">
+                    匿名<%= @animals[random_number][:name] %>
+                  </div>
+                  <%= form_for @comment_new, url: subject_comments_path(subject_id: params[:subject_id]) do |n| %>
+                  <%= n.text_area :comment, class: 'form-control autosize', rows: 2 %>
+                  <%= n.hidden_field :subject_id, value: params[:subject_id].to_s %>
+                  <div class="actions">
+                    <%= n.button type: :submit, class: 'btn btn-default' do %>
+                      <i class="fa fa-edit">
+                        發表
+                      </i>
+                    <% end %>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+            <% @comment.each do |c| %>
+              <% random_number = rand(@animals.length) %>
+              <div class="row message">
+                <div class="col-sm-1 col-xs-2">
+                  <div class="avatar <%= @animals[random_number][:icon] %>"></div>
+                </div>
+                <div class="col-sm-11 col-xs-10">
+                  <div class="message-content">
+                    <div class="heading text-info">
+                      匿名<%= @animals[random_number][:name] %>
+                      <span class="timestamp pull-right text-muted">
+                        <i class="fa fa-clock-o"></i>
+                        <%= c.created_at.to_s %>
+                      </span>
+                    </div>
+                    <p>
+                      <%= c.comment %>
+                    </p>
+                    <div class="actions">
+                      <a href="#" title="回報為不當評論">
+                        <i class="fa fa-thumbs-o-down"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <% if @total_page.to_i > @page.to_i %>
+          <a href="#" class="btn btn-block text-ios text-center">
+            <i class="fa fa-angle-down fa-lg"></i>
+          </a>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <!-- Comments block end. -->
+  </div>
+</div>

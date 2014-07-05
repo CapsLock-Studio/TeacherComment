@@ -34,9 +34,10 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
+# gem 'therubyracer'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin]
+gem 'redis'
 # gem 'omniauth-github', :git => 'git://github.com/intridea/omniauth-github.git'
 # gem 'omniauth-openid', :git => 'git://github.com/intridea/omniauth-openid.git'
 # gem 'omniauth-facebook'

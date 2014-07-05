@@ -4,9 +4,9 @@
       <form class="form form-horizontal search-teacher">
         <div class="form-group">
           <div class="col-sm-5 col-xs-12">
-            <select class="select2 form-control">
-              <option>商管學院 - 資訊管理學系</option>
-              <option>工學院 - 資訊工程學系</option>
+            <select class="select2 form-control" onchange="location = this.options[this.selectedIndex].value;">
+              <option value="?department=1">商管學院 - 資訊管理學系</option>
+              <option value="?department=2" selected>工學院 - 資訊工程學系</option>
             </select>
           </div>
           <div class="col-sm-7 col-xs-12">
@@ -23,40 +23,29 @@
       </form>
     </div>
     <div class="col-xs-12">
-      <% 10.times do %>
+      <% @teacher.each do |t| %>
         <div class="row teacher">
           <div class="avatar col-md-2">
             <%= image_tag "avatar-test#{(rand(3) + 1)}.jpg", class: 'img-responsive' %>
           </div>
           <div class="teacher-info col-md-3">
-            <h3 class="teacher-name">傳說中的<small>教授</small></h3>
+            <h3 class="teacher-name"><%= t.name %><small>教授</small></h3>
             <p>商管學院 - 資訊管理學系</p>
-
-            <div class="comments">
-              <div class="quantity">
-                <i class="fa fa-comments-o fa-fw text-ios"></i>
-                123<span class="text-muted">個評語</span>
-              </div>
-
-              <%= link_to teacher_path(1), class: 'btn btn-default comment pull-right' do %>
-                評語<i class="fa fa-angle-right"></i>
-              <% end %>
-            </div>
           </div>
           <div class="courses col-md-7">
             <h4 class="page-header"><i class="fa fa-book fa-fw"></i>授課課程</h4>
             <div class="row">
-              <% 4.times do %>
+              <% @subject[t.id].each do |s| %>
                 <div class="col-md-6">
                   <div class="comments">
                     <div class="name">
-                      物件導向設計
+                      <%= s.name %>
                     </div>
                     <div class="quantity">
                       <i class="fa fa-comments-o fa-fw text-ios"></i>
-                      123<span class="text-muted">個評語</span>
+                      <%= @comment[s.id] %><span class="text-muted">個評語</span>
                     </div>
-                    <%= link_to teacher_comment_path(1, 1), class: 'btn btn-default comment pull-right' do %>
+                    <%= link_to '/subjects/'+s.id.to_s+'/comments', class: 'btn btn-default comment pull-right' do %>
                       評語<i class="fa fa-angle-right"></i>
                     <% end %>
                   </div>
@@ -65,9 +54,11 @@
             </div>
             <div class="row">
               <div class="col-xs-12">
+                <% if @subject[t.id].count > 1 %>
                 <div class="btn btn-block btn-sm btn-link text-center text-ios btn-more">
                   <i class="fa fa-angle-down fa-lg fa-fw"></i>
                 </div>
+                <% end %>
               </div>
             </div>
           </div>
@@ -79,13 +70,11 @@
       <div class="row">
         <div class="col-xs-12 text-center text-ios">
           <ul class="pagination">
-            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+            <li class="<%= @page.to_i == 1 ? 'disabled' : '' %>"><a href="<%= @page.to_i == 1 ? 'javascript:void(0)' : teachers_path(:page => @page.to_i-1, :department => params[:department]) %>"><i class="fa fa-angle-left"></i></a></li>
+            <% for i in @max.times do %>
+              <li class="<%= @min.to_i + i == @page.to_i ? 'active' : '' %>"><a href="<%= teachers_path(:page => i + @min.to_i, :department => params[:department]) %>"><%= i+@min.to_i %></a></li>
+            <% end %>
+            <li class="<%= @page.to_i == @total_page.to_i ? 'disabled' : ''%>"><a href="<%= @page.to_i == @total_page.to_i ? 'javascript:void(0)' : teachers_path(:page => @page.to_i+1, :department => params[:department]) %>"><i class="fa fa-angle-right"></i></a></li>
           </ul>
         </div>
       </div>

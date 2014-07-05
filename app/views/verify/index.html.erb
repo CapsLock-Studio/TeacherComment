@@ -1,0 +1,29 @@
+<div class="content text-center" style="margin-top: 40px;">
+  <div class="col-md-12">
+    <div class="">
+      <div class="page-header">
+        <h1>信箱驗證</h1>
+        <div class="text-left" style="margin-top: 20px;">
+          <h4>Notice:</h4>
+          <ul>
+            <li>
+              請使用以下格式的信箱 @sXX.tku.edu.tw
+            </li>
+            <li>
+              如果你不能新增信箱驗證，請洽 <a href="mailto:admin_tku_comment_board@gmail.com">administrator</a>.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <form class="" role="search" style="margin-top: 40px;" method="post" action="">
+        <div class="input-group form-group input-group-lg col-sm-4 col-sm-offset-4 col-xs-12">
+          <input type="text" class="form-control" placeholder="E-mail" name="email">
+          <input type="hidden" name="id" value="<%= @tmp_user_id %>">
+        </div>
+        <div class="col-md-12" style="margin-top: 40px; margin-bottom: 40px;">
+          <button type="submit" class="btn btn-default btn-lg" style="margin-top: 40px; margin-bottom: 40px;">送出</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

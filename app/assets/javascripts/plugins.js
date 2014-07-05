@@ -6,3 +6,4 @@
 //= require plugins/select2
 //= require plugins/highcharts
 //= require plugins/jquery.autosize
+//= require plugins/jquery.cssemoticons

@@ -1,17 +1,29 @@
-class VerifyController < ActionController::Base
-  before_action :set, only: [:show]
+class VerifyController < ApplicationController
+  before_action :set, only: [:show, :create]
+  skip_before_filter :authorize
+  protect_from_forgery
 
   # main page for send mail
+  # [GET] /verify
+  # need redirect from any register page
   def index
+    @tmp_user_id = session[:tmp_user_id]
+    if not @tmp_user_id.present?
+      redirect_to login_index_path
+    end
   end
 
-  # [PUT] /verify/{id}
-  def update
-    if @user.status == false and params[:email].present? and params[:email].match(/@s\d{1,}\.tku\.edu\.tw\z/)
+  # [POST] /verify
+  def create
+    if @user.status == false and params[:email].present? and params[:email].match(ENV['MAIL_REGEX'])
       @user.email = params[:email]
       @user.student_id = params[:email].split("@").first
       @user.save
-      # send mail here
+      session[:tmp_user_id] = nil
+      RegistrationMail.reciever(@user.email, @user.id, @user.verify_code).deliver
+      render :template => 'success/index'
+    else
+      # error appear here
     end
   end
 
@@ -22,10 +34,11 @@ class VerifyController < ActionController::Base
       @user.verify_code = ''
       @user.status = true
       @user.save
-      redirect_to :controller => 'login', :action => 'index'
+      session[:user] = '1'
+      session[:user_id] = @user.id
+      redirect_to login_index_path
     else
-      @msg = 'verify_code is not correct.'
-      render :template => 'error/index'
+      call_image('404')
     end
   end
 
@@ -33,7 +46,6 @@ class VerifyController < ActionController::Base
     def set
       @user = User.find(params[:id])
     rescue
-      @msg = 'User is not avaliable.'
-      render :template => 'error/index'
+      call_image('404')
     end
 end

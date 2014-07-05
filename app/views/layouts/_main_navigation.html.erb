@@ -3,7 +3,7 @@
     <span class="sr-only">開啓導航列</span>
     <i class="fa fa-bars fa-fw"></i>
   </button>
-  <a href="../" class="navbar-brand">課程評語</a>
+  <a href="#" class="navbar-brand">課程評語</a>
 </div>
 <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
   <ul class="nav navbar-nav">
@@ -13,9 +13,15 @@
   </ul>
   <ul class="nav navbar-nav navbar-right">
     <li>
-      <a href="#">
-        <i class="fa fa-fw fa-sign-in"></i>
-        登入
+      <% if not session[:user].present? %>
+        <a href="/login">
+          <i class="fa fa-fw fa-sign-in"></i>
+          登入
+      <% else %>
+        <a href="/logout">
+          <i class="fa fa-fw fa-sign-out"></i>
+          登出
+      <% end %>
       </a>
     </li>
   </ul>

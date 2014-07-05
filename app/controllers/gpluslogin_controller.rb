@@ -1,0 +1,2 @@
+class GplusloginController < ApplicationController
+end
