@@ -1,0 +1,2 @@
+module Twitter::CallbackHelper
+end

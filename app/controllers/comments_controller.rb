@@ -5,19 +5,20 @@ class CommentsController < ApplicationController
 
   # [POST]/subjects/{subject_id}/comments
   def create
-    if params[:comment].present?
-      @comment = Comment.new(comment_params)
-      @comment.user_id = session[:user_id]
+    if params[:comment].present? and !params[:comment].blank?
+      comment = Comment.new(comment_params)
+      comment.user_id = session[:user_id]
+      comment.teacher_id = @subject.teacher_id
       respond_to do |format|
-        if @comment.save
+        if comment.save
           format.html { redirect_to subject_comments_path(params[:subject_id])}
-          format.json { render json: {'created_at' => @comment.created_at}}                                 
+          format.json { render json: {'created_at' => comment.created_at}}                                 
         else
-          call_image('500')
+          redirect_to subject_comments_path(params[:subject_id])
         end
       end
     else
-      call_image('400')
+      redirect_to subject_comments_path(params[:subject_id])
     end
   end
 
@@ -126,19 +127,8 @@ class CommentsController < ApplicationController
         }
     ]
 
-    @comment_new = Comment.new
-    @report = Report.where(:subject_id => params[:subject_id], :review => 1).count(:id) - Report.where(:subject_id => params[:subject_id], :review => -1).count(:id)
-    @test = Test.where(:subject_id => params[:subject_id], :review => 1).count(:id) - Test.where(:subject_id => params[:subject_id], :review => -1).count(:id)
-    @report_clicked = false
-    @test_clicked = false
-
-    if Report.find_by(:subject_id => params[:subject_id], :user_id => session[:user_id]).present?
-      @report_clicked = true
-    end
-
-    if Test.find_by(:subject_id => params[:subject_id], :user_id => session[:user_id]).present?
-      @test_clicked = true
-    end
+    @report = Report.positive(params[:subject_id]) - Report.negative(params[:subject_id])
+    @test = Test.positive(params[:subject_id]) - Test.negative(params[:subject_id])
 
     if @report == 0 and @test == 0
       report = 1
@@ -148,9 +138,11 @@ class CommentsController < ApplicationController
       test = @test
     end
 
-    total = test + report
+    total = test.to_i + report.to_i
     @report_rate = '%.2f' % ((report.to_f / total.to_f).to_f * 100)
     @test_rate = '%.2f' % ((test.to_f / total.to_f).to_f * 100)
+    @report_clicked = Report.find_by(:subject_id => params[:subject_id], :user_id => session[:user_id]).present?
+    @test_clicked = Test.find_by(:subject_id => params[:subject_id], :user_id => session[:user_id]).present?
 
     respond_to do |format|
       format.html {}
@@ -158,12 +150,12 @@ class CommentsController < ApplicationController
         'current' => @page,
         'total' => @total_page,
         'comment' => @comment.to_a,
-        'report_rate' => @report_rate,
         'test_rate' => @test_rate,
+        'report_rate' => @report_rate,
         'test' => @test,
         'report' => @report,
-        'report_clicked' => @report_clicked,
-        'test_clicked' => @test_clicked
+        'test_clicked' => @test_clicked,
+        'report_clicked' => @report_clicked
         }
       }
     end
@@ -181,9 +173,9 @@ class CommentsController < ApplicationController
     end
 
     def set_comment
-      @total_page = (Comment.where(:subject_id => params[:subject_id]).count(:id) / 20 ).to_i + 1
+      @total_page = (Comment.with_condition(params[:subject_id]).count(:id) / 20 ).to_i + 1
       @page = params[:page].present? && params[:page].to_i > 0 ? (params[:page].to_i > @total_page ? @total_page : params[:page] ) : 1
-      @comment = Comment.select(:id, :comment, :created_at).where(subject_id: params[:subject_id]).pageinator(@page).order("created_at DESC")
+      @comment = Comment.get(params[:subject_id], @page)
     rescue ActiveRecord::RecordNotFound
       call_image('404')
     end

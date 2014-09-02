@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   resources :logout
   resources :verify
   resources :index
-  resources :fblogin
+  namespace :facebook do
+    resources :callback
+  end
 
 # get    '/events'          => "events#index",   :as => "test"
 # get    '/events'          => "events#index",   as: 'events'
 
-  resources :admin
   root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

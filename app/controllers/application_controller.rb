@@ -9,19 +9,19 @@ class ApplicationController < ActionController::Base
       @msg = code
       respond_to do |format|
         format.json {render json: {'msg' => @msg}}
-        format.html {render :template => 'view/index'}
+        format.html {render :template => 'error/index'}
       end
     end
 
   private
     def authorize
       if session[:tmp_user_id].present?
-      #   redirect_to verify_index_path
-      # else 
-      #   redirect_to login_index_path unless session[:user]
-      #   user = User.find_by(session[:user_id])
-      #   user.ip = request.remote_addr || '127.0.0.1'
-      #   user.save
+        redirect_to verify_index_path
+      else 
+        redirect_to login_index_path unless session[:user]
+        user = User.find_by(session[:user_id])
+        user.ip = request.remote_addr || '127.0.0.1'
+        user.save
       end
     end
 end
