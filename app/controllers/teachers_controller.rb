@@ -5,7 +5,7 @@ class TeachersController < ApplicationController
   # this is subject for specified teacher(ajax)
   # [GET]/teachers/{id}
   def show
-    @total_page = (@teacher.subject.count(:id) / 4).to_i + 1;
+    @total_page = (@teacher.subject.count(:id) / 4).to_i + 1
     @page = get_current_page
     @subject = @teacher.subject.pageinator(@page)
     @comment = {}
@@ -45,16 +45,16 @@ class TeachersController < ApplicationController
       if params[:search].present?
         search_string = 'name like :name'
         condition = "%#{params[:search]}%"
-        @total_page = (Teacher.with_condition(search_string, {:name => condition}).count(:id) / 10).to_i + 1;
+        @total_page = (Teacher.with_condition(search_string, {:name => condition}).count(:id) / 10).to_i + 1
         @page = get_current_page
         @teacher = Teacher.find_with_condition(search_string, {:name => condition}, @page)
       elsif params[:department_id].present?
         search_string = 'department_id = :department_id'
-        @total_page = (Teacher.with_condition(search_string, {:department_id => params[:department_id]}).count(:id) / 10).to_i + 1;
+        @total_page = (Teacher.with_condition(search_string, {:department_id => params[:department_id]}).count(:id) / 10).to_i + 1
         @page = get_current_page
         @teacher = Teacher.find_with_condition(search_string, {:department_id => params[:department_id]}, @page)
       else
-        @total_page = (Teacher.count(:id) / 10).to_i + 1;
+        @total_page = (Teacher.count(:id) / 10).to_i + 1
         @page = get_current_page
         @teacher = Teacher.with_select.pageinator(@page)
       end 
