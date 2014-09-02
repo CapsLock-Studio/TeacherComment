@@ -47,5 +47,5 @@ Rails.application.configure do
   ENV['FACEBOOK_KEY'] = '286556551510257'
   ENV['FACEBOOK_SECRET'] = '53864d6ab61bd0a3b083108cf4c97bec'
   ENV['APP_URI'] = 'http://localhost:3000'
-  ENV['MAIL_REGEX'] = /@s\d{1,}\.tku\.edu\.tw\z/
+  ENV['MAIL_REGEX'] = '/@s\d{1,}\.tku\.edu\.tw\z/'
 end

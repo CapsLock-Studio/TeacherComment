@@ -3,7 +3,6 @@
 html, body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif, "wt011";
   text-shadow: 0px 0px 1px rgba(0, 0, 0, 0.3);
-  height: 100%;
 }
 
 
@@ -216,31 +215,5 @@ html, body {
     &.active {
       display: block;
     }
-  }
-}
-
-
-@each $i in "400" "403" "404" "500" {
-  .image-#{$i} {
-    background-image: image_url('#{$i}.jpg');
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center top;
-    height: 100%;
-    right: 0;
-    left: 0;
-  }
-
-  @media only screen and (max-width : 320px) {
-    .image-#{$i} {
-      background-image: image_url('avatar-test1.jpg') !important
-    }
-  }
-}
-
-.image-wrapper {
-  height: calc(100% - 100px);
-  @media only screen and (max-width : 320px) {
-    height: calc(100% - 120px) !important
   }
 }
