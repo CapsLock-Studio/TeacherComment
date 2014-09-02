@@ -7,23 +7,24 @@ class VerifyController < ApplicationController
   # [GET] /verify
   # need redirect from any register page
   def index
-    @tmp_user_id = session[:tmp_user_id]
-    if not @tmp_user_id.present?
+    if not session[:tmp_user_id].present?
       redirect_to login_index_path
     end
   end
 
   # [POST] /verify
   def create
-    if @user.status == false and params[:email].present? and params[:email].match(ENV['MAIL_REGEX'])
-      @user.email = params[:email]
-      @user.student_id = params[:email].split("@").first
+    regex = Regexp.new ENV['MAIL_REGEX']
+    email = params[:email]
+    if @user.status == false and email.present? and regex.match(params[:email])
+      @user.email = email
+      @user.student_id = email.split("@").first
       @user.save
-      session[:tmp_user_id] = nil
+      reset_session
       RegistrationMail.reciever(@user.email, @user.id, @user.verify_code).deliver
-      render :template => 'success/index'
+      @state = true
     else
-      # error appear here
+      @state = false
     end
   end
 
@@ -31,7 +32,7 @@ class VerifyController < ApplicationController
   def show
     verify_code = params[:verify_code]
     if verify_code.present? and @user.verify_code == verify_code and @user.status == false
-      @user.verify_code = ''
+      @user.verify_code = nil
       @user.status = true
       @user.save
       session[:user] = '1'

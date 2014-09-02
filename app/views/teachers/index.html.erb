@@ -31,6 +31,10 @@
           <div class="teacher-info col-md-3">
             <h3 class="teacher-name"><%= t.name %><small>教授</small></h3>
             <p>商管學院 - 資訊管理學系</p>
+            <div class="quantity">
+              <i class="fa fa-comments-o fa-fw text-ios"></i>
+              <%= @comment_count[t.id] %><span class="text-muted">個評語</span>
+            </div>
           </div>
           <div class="courses col-md-7">
             <h4 class="page-header"><i class="fa fa-book fa-fw"></i>授課課程</h4>

@@ -1,0 +1,2 @@
+module Google::CallbackHelper
+end

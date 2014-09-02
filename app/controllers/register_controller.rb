@@ -26,6 +26,8 @@ class RegisterController < ApplicationController
     end
 
     def request_with_ssl(uri)
+      require 'net/http'
+      require 'uri'
       uri = URI(uri)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true

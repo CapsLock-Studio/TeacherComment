@@ -11,12 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140705152309) do
+ActiveRecord::Schema.define(version: 20140709101200) do
+
+  create_table "abuses", force: true do |t|
+    t.integer  "comment_id"
+    t.string   "verify_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.integer  "subject_id"
     t.integer  "user_id"
     t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "teacher_id"
+  end
+
+  add_index "comments", ["id", "subject_id", "user_id"], name: "index_comments_on_id_and_subject_id_and_teacher_id_and_user_id"
+
+  create_table "departments", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,6 +52,8 @@ ActiveRecord::Schema.define(version: 20140705152309) do
     t.datetime "updated_at"
   end
 
+  add_index "subjects", ["id", "teacher_id"], name: "index_subjects_on_id_and_teacher_id"
+
   create_table "teachers", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -43,6 +61,8 @@ ActiveRecord::Schema.define(version: 20140705152309) do
     t.integer  "department_id", limit: 255
     t.string   "avatar"
   end
+
+  add_index "teachers", ["id", "department_id"], name: "index_teachers_on_id_and_department_id"
 
   create_table "tests", force: true do |t|
     t.integer  "user_id"
@@ -64,5 +84,7 @@ ActiveRecord::Schema.define(version: 20140705152309) do
     t.integer  "student_id"
     t.string   "password"
   end
+
+  add_index "users", ["id", "type_id", "platform_id"], name: "index_users_on_id_and_type_id_and_platform_id"
 
 end

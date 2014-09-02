@@ -12,6 +12,6 @@ class LoginController < ApplicationController
   private
     def set_fb_uri
       require 'digest/md5'
-      @fb_login = 'http://www.facebook.com/dialog/oauth?client_id='+ENV['FACEBOOK_KEY']+'&redirect_uri='+Rack::Utils.escape(ENV['APP_URI']+'/fblogin')+'&state='+Digest::MD5.hexdigest(SecureRandom.urlsafe_base64(nil, false))
+      @fb_uri = "http://www.facebook.com/dialog/oauth?client_id=#{ENV['FACEBOOK_KEY']}&redirect_uri=#{Rack::Utils.escape(ENV['APP_URI']+"/facebook/callback")}&state=#{Digest::MD5.hexdigest(SecureRandom.urlsafe_base64(nil, false))}"
     end
 end

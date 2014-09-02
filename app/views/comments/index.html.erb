@@ -65,7 +65,7 @@
                   <div class="heading text-info">
                     匿名<%= @animals[random_number][:name] %>
                   </div>
-                  <%= form_for @comment_new, url: subject_comments_path(subject_id: params[:subject_id]) do |n| %>
+                  <%= form_for Comment.new, url: subject_comments_path(subject_id: params[:subject_id]) do |n| %>
                   <%= n.text_area :comment, class: 'form-control autosize', rows: 2 %>
                   <%= n.hidden_field :subject_id, value: params[:subject_id].to_s %>
                   <div class="actions">
