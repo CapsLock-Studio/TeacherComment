@@ -23,7 +23,9 @@ class AbuseController < ApplicationController
   private
     def set
       @abuse = Abuse.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      call_image('404')
+
+    # record not found return natural 404
+    # rescue ActiveRecord::RecordNotFound
+    #   call_image('404')
     end
 end

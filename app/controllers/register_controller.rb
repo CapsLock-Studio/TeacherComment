@@ -5,7 +5,7 @@ class RegisterController < ApplicationController
     def register(platform_id, type_id)
       user = User.find_by(platform_id: platform_id, type_id: type_id)
       if user.present?
-        if user.status == true
+        if user.status
           enter(user)
         else
           redirect_verify(user.id)
@@ -20,7 +20,10 @@ class RegisterController < ApplicationController
         if user.save
           redirect_verify(user.id)
         else
-          call_image('400')
+
+          raise ActionController::RoutingError.new('Not Found')
+          # record not found return natural 404
+          # call_image('400')
         end
       end
     end
@@ -34,8 +37,7 @@ class RegisterController < ApplicationController
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       uri = uri.request_uri
       request = Net::HTTP::Get.new(uri)
-      response = http.request(request)
-      response
+      http.request(request)
     end
 
   private

@@ -57,15 +57,19 @@ class TeachersController < ApplicationController
         @total_page = (Teacher.count(:id) / 10).to_i + 1
         @page = get_current_page
         @teacher = Teacher.with_select.pageinator(@page)
-      end 
-    rescue ActiveRecord::RecordNotFound
-      call_image('404')
+      end
+
+    # record not found return natural 404
+    #rescue ActiveRecord::RecordNotFound
+    #  call_image('404')
     end
 
     def set_teacher
       @teacher = Teacher.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      call_image('404')
+
+    # record not found return natural 404
+    #rescue ActiveRecord::RecordNotFound
+    #  call_image('404')
     end
 
     def teacher_params

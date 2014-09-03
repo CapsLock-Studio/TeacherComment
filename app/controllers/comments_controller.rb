@@ -168,15 +168,19 @@ class CommentsController < ApplicationController
 
     def set_subject
       @subject = Subject.find(params[:subject_id])
-    rescue
-      call_image('404')
+
+    raise ActionController::RoutingError.new('Not Found')
+    # record not found return natural 404
+    #rescue
+    #  call_image('404')
     end
 
     def set_comment
       @total_page = (Comment.with_condition(params[:subject_id]).count(:id) / 20 ).to_i + 1
       @page = params[:page].present? && params[:page].to_i > 0 ? (params[:page].to_i > @total_page ? @total_page : params[:page] ) : 1
       @comment = Comment.get(params[:subject_id], @page)
-    rescue ActiveRecord::RecordNotFound
-      call_image('404')
+    # record not found return natural 404
+    # rescue ActiveRecord::RecordNotFound
+    #   call_image('404')
     end
 end

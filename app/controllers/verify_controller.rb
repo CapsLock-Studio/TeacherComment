@@ -7,7 +7,7 @@ class VerifyController < ApplicationController
   # [GET] /verify
   # need redirect from any register page
   def index
-    if not session[:tmp_user_id].present?
+    unless session[:tmp_user_id].present?
       redirect_to login_index_path
     end
   end
@@ -39,7 +39,10 @@ class VerifyController < ApplicationController
       session[:user_id] = @user.id
       redirect_to login_index_path
     else
-      call_image('404')
+
+      raise ActionController::RoutingError.new('Not Found')
+      # record not found return natural 404
+      #call_image('404')
     end
   end
 
@@ -47,6 +50,9 @@ class VerifyController < ApplicationController
     def set
       @user = User.find(params[:id])
     rescue
-      call_image('404')
+
+      raisse ActionController::RoutingError.new('Not Found')
+      # record not found return natural 404
+      # call_image('404')
     end
 end
